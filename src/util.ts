@@ -21,29 +21,8 @@ export const getConfigPath = (): string => {
 
 export const readConfig = (): HshConfig => {
   const configPath = getConfigPath();
-  const legacyDirConfigPath = join(homedir(), '.hsh', 'config.json');
-  const legacyFileConfigPath = join(homedir(), 'hsh.config.json');
 
-  let configContent: string;
-  if (existsSync(configPath)) {
-    configContent = readFileSync(configPath, 'utf-8');
-  } else if (existsSync(legacyDirConfigPath)) {
-    console.warn(
-      chalk.yellow(
-        `⚠️  Using legacy config location: ~/.hsh/config.json\n` +
-          `   Please move it to: ~/.ai/config.json`
-      )
-    );
-    configContent = readFileSync(legacyDirConfigPath, 'utf-8');
-  } else if (existsSync(legacyFileConfigPath)) {
-    console.warn(
-      chalk.yellow(
-        `⚠️  Using legacy config location: ~/hsh.config.json\n` +
-          `   Please move it to: ~/.ai/config.json`
-      )
-    );
-    configContent = readFileSync(legacyFileConfigPath, 'utf-8');
-  } else {
+  if (!existsSync(configPath)) {
     throw new Error(
       `Configuration file not found: ${configPath}\n` +
         `Please create it.\n` +
@@ -51,6 +30,7 @@ export const readConfig = (): HshConfig => {
     );
   }
 
+  const configContent = readFileSync(configPath, 'utf-8');
   const config = JSON.parse(configContent);
 
   // Auto-migrate legacy configuration content (file location is already new)
