@@ -129,7 +129,7 @@ Data model definitions for the cloud login feature configuration structure, enti
 
 - Both `repos` and `yiren` sections must be present (can be empty objects)
 - Must be valid JSON format
-- File must exist at `~/.hsh/config.json`
+- File must exist at `~/.ai/config.json`
 
 **Complete Example**:
 
@@ -227,7 +227,7 @@ User Command → Parameter Validation → Config Lookup → SSH Execution → Co
 ### Configuration File Validation
 
 - **Format**: Valid JSON syntax
-- **Location**: Must exist at `~/.hsh/config.json`
+- **Location**: Must exist at `~/.ai/config.json`
 - **Structure**: Must contain `repos` and `yiren` objects
 - **Permissions**: File must be readable by user
 
@@ -248,7 +248,7 @@ User Command → Parameter Validation → Config Lookup → SSH Execution → Co
 
 ### Configuration Errors
 
-- **File Not Found**: `~/.hsh/config.json` does not exist
+- **File Not Found**: `~/.ai/config.json` does not exist
 - **Invalid JSON**: Malformed JSON syntax
 - **Missing Sections**: Required `repos` or `yiren` sections missing
 - **Invalid Structure**: Incorrect nesting or field types

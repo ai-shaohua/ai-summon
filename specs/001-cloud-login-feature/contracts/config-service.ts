@@ -7,7 +7,7 @@ import { HshConfig, CloudConfig, Environment } from '../data-model';
 
 export interface ConfigService {
   /**
-   * Read configuration from ~/.hsh/config.json
+   * Read configuration from ~/.ai/config.json
    * @returns Promise resolving to parsed configuration
    * @throws Error if file not found or invalid JSON
    */

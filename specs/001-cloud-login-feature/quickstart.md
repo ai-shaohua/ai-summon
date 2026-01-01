@@ -231,7 +231,7 @@ export async function openSurf() {
 
 ### Sample Configuration File
 
-Create or update `~/.hsh/config.json`:
+Create or update `~/.ai/config.json`:
 
 ```json
 {

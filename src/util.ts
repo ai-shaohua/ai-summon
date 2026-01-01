@@ -14,23 +14,43 @@ export const getPackageJson = () => {
 };
 
 export const getConfigPath = (): string => {
-  const dir = join(homedir(), '.hsh');
+  const dir = join(homedir(), '.ai');
   mkdirSync(dir, { recursive: true });
   return join(dir, 'config.json');
 };
 
 export const readConfig = (): HshConfig => {
   const configPath = getConfigPath();
+  const legacyDirConfigPath = join(homedir(), '.hsh', 'config.json');
+  const legacyFileConfigPath = join(homedir(), 'hsh.config.json');
 
-  if (!existsSync(configPath)) {
+  let configContent: string;
+  if (existsSync(configPath)) {
+    configContent = readFileSync(configPath, 'utf-8');
+  } else if (existsSync(legacyDirConfigPath)) {
+    console.warn(
+      chalk.yellow(
+        `⚠️  Using legacy config location: ~/.hsh/config.json\n` +
+          `   Please move it to: ~/.ai/config.json`
+      )
+    );
+    configContent = readFileSync(legacyDirConfigPath, 'utf-8');
+  } else if (existsSync(legacyFileConfigPath)) {
+    console.warn(
+      chalk.yellow(
+        `⚠️  Using legacy config location: ~/hsh.config.json\n` +
+          `   Please move it to: ~/.ai/config.json`
+      )
+    );
+    configContent = readFileSync(legacyFileConfigPath, 'utf-8');
+  } else {
     throw new Error(
       `Configuration file not found: ${configPath}\n` +
-        `Please create it (major release: legacy ~/hsh.config.json is no longer supported).\n` +
-        `Config file location: ~/.hsh/config.json`
+        `Please create it.\n` +
+        `Config file location: ~/.ai/config.json`
     );
   }
 
-  const configContent = readFileSync(configPath, 'utf-8');
   const config = JSON.parse(configContent);
 
   // Auto-migrate legacy configuration content (file location is already new)
@@ -38,7 +58,7 @@ export const readConfig = (): HshConfig => {
     console.warn(
       chalk.yellow('⚠️  Legacy config content detected. Auto-migrating to new structure.')
     );
-    console.warn(chalk.yellow('ℹ️  Consider updating your ~/.hsh/config.json to the new format:'));
+    console.warn(chalk.yellow('ℹ️  Consider updating your ~/.ai/config.json to the new format:'));
     console.warn(
       chalk.yellow('   { "repos": { <your existing config> }, "yiren": { <cloud config> } }')
     );
@@ -77,14 +97,14 @@ interface IdeReposCacheFileV1 {
   repos: GitRepository[];
 }
 
-const ensureHshDir = (): string => {
-  const dir = join(homedir(), '.hsh');
+const ensureAiDir = (): string => {
+  const dir = join(homedir(), '.ai');
   mkdirSync(dir, { recursive: true });
   return dir;
 };
 
 const getIdeReposCachePath = (): string => {
-  const dir = ensureHshDir();
+  const dir = ensureAiDir();
   return join(dir, 'ide-repos-cache.json');
 };
 

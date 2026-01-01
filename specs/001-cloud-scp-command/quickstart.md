@@ -23,7 +23,7 @@ This quickstart guide provides step-by-step instructions for implementing and us
 ### For Usage
 
 - `hsh` CLI tool installed globally (`yarn build:install`)
-- Cloud configuration set up in `~/.hsh/config.json`
+- Cloud configuration set up in `~/.ai/config.json`
 - SSH private key files with proper permissions (600)
 - SSH client installed (part of standard OS installation)
 
@@ -33,7 +33,7 @@ This quickstart guide provides step-by-step instructions for implementing and us
 
 ### Step 1: Configure Cloud Services
 
-Create or update `~/.hsh/config.json` with your cloud services:
+Create or update `~/.ai/config.json` with your cloud services:
 
 ```json
 {
@@ -241,7 +241,7 @@ hsh cloud scp ./file.txt /tmp/ --service unknown-service
 Available services: my-service, todo-mini, wuhan-mall
 ```
 
-**Solution**: Use one of the available services or add the service to `~/.hsh/config.json`.
+**Solution**: Use one of the available services or add the service to `~/.ai/config.json`.
 
 ---
 
@@ -258,7 +258,7 @@ hsh cloud scp ./file.txt /tmp/ --env dev --service my-service
 Available environments for my-service: staging, prod
 ```
 
-**Solution**: Add the missing environment to `~/.hsh/config.json` or use an available environment.
+**Solution**: Add the missing environment to `~/.ai/config.json` or use an available environment.
 
 ---
 

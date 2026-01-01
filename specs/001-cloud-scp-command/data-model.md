@@ -191,7 +191,7 @@ function buildExecutionContext(
 
 ### Configuration File Structure
 
-The SCP command uses the existing `~/.hsh/config.json` structure:
+The SCP command uses the existing `~/.ai/config.json` structure:
 
 ```json
 {
@@ -371,7 +371,7 @@ config.yiren
 This feature is stateless - all state is ephemeral and exists only during command execution:
 
 1. **Input State**: Command-line arguments and options (ephemeral)
-2. **Configuration State**: Read from `~/.hsh/config.json` (persistent, read-only)
+2. **Configuration State**: Read from `~/.ai/config.json` (persistent, read-only)
 3. **Validation State**: Path validation results (ephemeral, derived)
 4. **Execution State**: SCP execution context (ephemeral, derived)
 

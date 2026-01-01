@@ -22,7 +22,7 @@ Add a new `hsh cloud login` command that enables users to SSH into cloud instanc
 
 ### FR-2: Configuration Structure Update
 
-- **File**: `~/.hsh/config.json`
+- **File**: `~/.ai/config.json`
 - **New Structure**:
   ```json
   {
@@ -73,7 +73,7 @@ Add a new `hsh cloud login` command that enables users to SSH into cloud instanc
 
 ### TR-2: Configuration Management
 
-- Read configuration from `~/.hsh/config.json`
+- Read configuration from `~/.ai/config.json`
 - Validate configuration structure and provide helpful error messages
 - Support both old and new configuration formats during transition
 

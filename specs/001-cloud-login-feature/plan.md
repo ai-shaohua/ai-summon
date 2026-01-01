@@ -19,7 +19,7 @@ Add a new `hsh cloud login` command that enables SSH connections to cloud instan
 
 **Language/Version**: TypeScript 5.0+ with ES2020 target and ESNext modules
 **Primary Dependencies**: commander (CLI), inquirer (prompts), zx (shell), chalk (colors), ora (progress)
-**Storage**: JSON config files (~/.hsh/config.json) with nested structure for repos and cloud infrastructure
+**Storage**: JSON config files (~/.ai/config.json) with nested structure for repos and cloud infrastructure
 **Testing**: Manual CLI testing for SSH connections and configuration validation
 **Target Platform**: Node.js CLI (global installation via npm/yarn)
 **Project Type**: Single CLI application extending existing command structure
@@ -76,7 +76,7 @@ dist/                   # Compiled TypeScript output
 └── [mirrors src structure]
 
 # Configuration
-~/.hsh/config.json      # User configuration with new nested structure
+~/.ai/config.json      # User configuration with new nested structure
 ```
 
 **Structure Decision**: Using the existing TypeScript CLI project structure. Adding a new `cloud.ts` command module following the established pattern of domain-specific modules (git, mono, ide). The existing `ide.ts`, `types/index.ts`, and `util.ts` files require updates to support the new configuration structure while maintaining backward compatibility.

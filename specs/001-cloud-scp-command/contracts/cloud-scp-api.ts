@@ -311,7 +311,7 @@ export async function executeScpCommand(context: ScpExecutionContext): Promise<v
 /**
  * Configuration structure (reuses existing cloud login config):
  *
- * ~/.hsh/config.json:
+ * ~/.ai/config.json:
  * {
  *   "yiren": {
  *     "[service-name]": {
@@ -354,7 +354,7 @@ export async function executeScpCommand(context: ScpExecutionContext): Promise<v
  *   → Interactive environment selection prompt
  *
  * - readConfig(): Config
- *   → Reads configuration from ~/.hsh/config.json (from util.ts)
+ *   → Reads configuration from ~/.ai/config.json (from util.ts)
  */
 
 // ============================================================================

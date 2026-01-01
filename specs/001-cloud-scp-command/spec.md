@@ -34,7 +34,7 @@ When `--env` or `--service` options are not provided, the command should:
 
 ### FR-3: Configuration Reuse
 
-- **Configuration File**: `~/.hsh/config.json` (same as cloud login)
+- **Configuration File**: `~/.ai/config.json` (same as cloud login)
 - **Configuration Structure**: Uses existing `yiren` section from cloud login feature
   ```json
   {

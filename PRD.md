@@ -6,18 +6,18 @@ This PRD describes enhancements to the IDE integration commands (`hsh cursor` an
 
 ## Problem Statement
 
-Currently, users must manually configure every project path in `~/.hsh/config.json` under category structures. This becomes cumbersome when managing many Git repositories, especially in environments with multiple projects organized under common parent directories.
+Currently, users must manually configure every project path in `~/.ai/config.json` under category structures. This becomes cumbersome when managing many Git repositories, especially in environments with multiple projects organized under common parent directories.
 
 ## Proposed Solution
 
-Introduce a `workingDirectory` configuration option in `~/.hsh/config.json` that enables automatic Git repository discovery. When configured, the IDE commands will automatically scan for Git repositories (directories containing `.git` folders) within the specified working directory.
+Introduce a `workingDirectory` configuration option in `~/.ai/config.json` that enables automatic Git repository discovery. When configured, the IDE commands will automatically scan for Git repositories (directories containing `.git` folders) within the specified working directory.
 
 ## Requirements
 
 ### Functional Requirements
 
 #### FR1: Working Directory Configuration
-- **Description**: Support optional `workingDirectory` field in `~/.hsh/config.json`
+- **Description**: Support optional `workingDirectory` field in `~/.ai/config.json`
 - **Behavior**: When set, `workingDirectory` takes precedence and the system ONLY uses auto-discovered Git repositories
 - **Precedence Rule**: If `workingDirectory` exists, manually configured category-based projects are ignored
 - **Example Configuration**:
@@ -70,7 +70,7 @@ Introduce a `workingDirectory` configuration option in `~/.hsh/config.json` that
 
 ## Configuration Schema
 
-### Enhanced `~/.hsh/config.json` Structure
+### Enhanced `~/.ai/config.json` Structure
 
 **Option 1: With Working Directory (Auto-Discovery Mode)**
 ```json
@@ -124,7 +124,7 @@ Introduce a `workingDirectory` configuration option in `~/.hsh/config.json` that
 3. ✅ When `workingDirectory` is absent, existing manual configurations work unchanged
 4. ✅ Auto-discovered project list appears in IDE command prompts
 5. ✅ No TypeScript or ESLint errors introduced
-6. ✅ Backward compatible with existing `~/.hsh/config.json` files
+6. ✅ Backward compatible with existing `~/.hsh/config.json` files (legacy location)
 7. ✅ Clear error handling for edge cases
 
 ## Out of Scope
@@ -264,5 +264,5 @@ During scanning, some directories might be inaccessible due to permissions or sy
 ## References
 
 - Existing Implementation: `src/commands/ide/index.ts`
-- Configuration File: `~/.hsh/config.json`
+- Configuration File: `~/.ai/config.json`
 - Related Commands: `hsh cursor`, `hsh claude` 

@@ -68,7 +68,7 @@ The CLI follows a modular command structure using Commander.js:
 - **ESM modules**: Uses ES module imports/exports throughout
 - **Async/await**: All shell operations are async with proper error handling
 - **Interactive CLI**: Extensive use of inquirer prompts with autocomplete
-- **Configuration-based**: IDE command uses `~/.hsh/config.json` for project paths
+- **Configuration-based**: IDE command uses `~/.ai/config.json` for project paths
 - **Monorepo aware**: Special handling for multi-repository workflows
 - **TypeScript strict mode**: Full type safety with comprehensive type checking
 
@@ -103,7 +103,7 @@ The CLI follows a modular command structure using Commander.js:
 
 ### IDE Configuration
 
-The `cursor` and `claude` commands require a configuration file at `~/.hsh/config.json`:
+The `cursor` and `claude` commands require a configuration file at `~/.ai/config.json`:
 
 ```json
 {

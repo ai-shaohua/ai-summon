@@ -20,7 +20,7 @@ Add `hsh cloud scp` command to enable secure file/directory copying to cloud ins
 - chalk (terminal colors for user feedback)
 - fs/promises (file system operations for path validation)
 
-**Storage**: Configuration from `~/.hsh/config.json` (existing yiren section)
+**Storage**: Configuration from `~/.ai/config.json` (existing yiren section)
 **Testing**: Manual CLI testing (consistent with project patterns)
 **Target Platform**: Node.js CLI (global installation via yarn)
 **Project Type**: Single TypeScript CLI project

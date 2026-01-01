@@ -116,7 +116,7 @@ Projects updated:
 
 ### IDE Configuration
 
-Create `~/.hsh/config.json` for IDE project management:
+Create `~/.ai/config.json` for IDE project management:
 
 ```json
 {
