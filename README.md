@@ -1,6 +1,10 @@
-# hsh - CLI Workflow Automation Tool
+# ai-summon
 
-A TypeScript-based CLI tool that provides Git workflow automation, IDE project management, and MCP server configuration synchronization.
+A small TypeScript CLI (binary name: `ai`) for:
+
+- Opening projects in **Cursor** or **Claude** via an interactive fuzzy search
+- Managing personal **URL bookmarks** and **URL groups** (open in Chrome)
+- Bootstrapping `~/.ai/config.json`
 
 ## Installation
 
@@ -9,160 +13,159 @@ yarn install
 yarn build:install
 ```
 
-## Features
-
-### Git Workflow Automation
-
-- `hsh gcm <message> [--push]` - Add all, commit with message, optionally push
-- `hsh push` - Interactive branch selection for pushing to remote
-- `hsh merge <branch>` - Safe merge with branch switching and pulling
-- `hsh mr create` - Create merge requests with JIRA integration
-- `hsh branchout <branch>` - Create new branch from master
-
-### Monorepo Management
-
-- `hsh mono init` - Initialize workspace with `.hsh` marker file
-- `hsh mono cd <level> [--repo <name>]` - Navigate to repo directories (root/client/server)
-
-### IDE Integration
-
-- `hsh cursor` - Open project in Cursor editor with config-based project selection
-- `hsh claude` - Open project in Claude Code editor with config-based project selection
-
-### MCP Server Management
-
-**NEW!** Solve the problem of having to configure MCP servers individually for each project.
-
-#### The Problem
-
-Claude Code doesn't support global MCP server installation. You have to configure MCP servers in each project's `.claude.json` file individually, which is tedious and error-prone.
-
-#### The Solution
-
-`hsh mcp sync` - Synchronize MCP server configurations from a central location to all your projects
-
-#### How It Works
-
-1. Create a central MCP configuration file at `~/.mcp/servers.json`:
-
-```json
-{
-  "chrome-devtools": {
-    "type": "stdio",
-    "command": "npx",
-    "args": ["chrome-devtools-mcp@latest"],
-    "env": {}
-  },
-  "GitLab communication server": {
-    "command": "npx",
-    "args": ["-y", "@zereight/mcp-gitlab"],
-    "env": {
-      "GITLAB_PERSONAL_ACCESS_TOKEN": "your-token",
-      "GITLAB_API_URL": "https://gitlab.example.com/api/v4"
-    }
-  },
-  "jira": {
-    "command": "npx",
-    "args": ["-y", "@aashari/mcp-server-atlassian-jira"],
-    "env": {
-      "ATLASSIAN_SITE_NAME": "your-site",
-      "ATLASSIAN_USER_EMAIL": "your-email",
-      "ATLASSIAN_API_TOKEN": "your-token"
-    }
-  }
-}
-```
-
-2. Run the sync command:
+After install, you should have the `ai` command available:
 
 ```bash
-hsh mcp sync
+ai --help
 ```
 
-3. The command will:
-   - Read all MCP server configurations from `~/.mcp/servers.json`
-   - Update the `mcpServers` field for all projects in `~/.claude.json`
-   - Show you which servers were synced and how many projects were updated
+## Commands
 
-#### Features
+### `ai init`
 
-- ✅ Idempotent - Safe to run multiple times
-- ✅ Atomic updates - Updates all projects at once
-- ✅ Clear feedback - Shows which servers and projects were updated
-- ✅ Validation - Checks for file existence and valid JSON
-
-#### Example Output
+Initialize `~/.ai/config.json`.
 
 ```bash
-$ hsh mcp sync
-✔ Successfully synced MCP servers to 21 projects
-
-MCP Servers synced:
-  • chrome-devtools
-  • Playwright
-  • figma-mcp
-  • GitLab communication server
-  • jira
-  • confluence
-
-Projects updated:
-  • /Users/you/project1
-  • /Users/you/project2
-  • /Users/you/project3
-  ... and 18 more
+ai init
+ai init --working-directory /Users/you/dev
+ai init --force
 ```
 
-## Configuration
+Options:
 
-### IDE Configuration
+- `-w, --working-directory <path>`: set `workingDirectory` without prompting
+- `-f, --force`: overwrite existing config without confirmation
 
-Run `ai init` to create `~/.ai/config.json` (it will prompt you for `workingDirectory`), or create it manually:
+### `ai cursor [search]`
+
+Open a project in **Cursor**.
+
+```bash
+ai cursor
+ai cursor payments
+```
+
+### `ai claude [search]`
+
+Open a project in **Claude Code**.
+
+```bash
+ai claude
+ai claude impactful
+```
+
+### `ai cursor refresh` / `ai claude refresh`
+
+Refresh the cached auto-discovered repositories (only applies when `workingDirectory` mode is enabled).
+
+```bash
+ai cursor refresh
+ai claude refresh
+```
+
+### `ai url ...`
+
+URL bookmark management (stored in `~/.ai/config.json`).
+
+#### `ai url add <name> <url>`
+
+```bash
+ai url add jira https://your-jira.example.com
+```
+
+#### `ai url remove [name]`
+
+If `name` is omitted, you’ll enter interactive search mode.
+
+```bash
+ai url remove jira
+ai url remove
+```
+
+#### `ai url search [--suppress]`
+
+Interactively search bookmarks and open the selected URL in **Google Chrome**.
+
+```bash
+ai url search
+ai url search --suppress
+```
+
+Options:
+
+- `--suppress`: auto-dismiss popups by simulating the Enter key after opening (macOS via `osascript`)
+
+#### `ai url group`
+
+Select a configured URL group and open all URLs in a new Chrome window.
+
+```bash
+ai url group
+```
+
+## Configuration (`~/.ai/config.json`)
+
+Run `ai init` to create the file. The CLI supports **two modes** for project selection:
+
+### Auto-discovery mode (recommended)
+
+Set `workingDirectory` to a folder containing your git repositories. The CLI will recursively scan for repos (by `.git`) and cache results to speed up future runs (cache file: `~/.ai/ide-repos-cache.json`).
+
+Example:
 
 ```json
 {
   "workingDirectory": "/Users/you/dev",
-  "work": {
-    "project1": "/path/to/work/project1",
-    "project2": "/path/to/work/project2"
+  "repos": {},
+  "yiren": {},
+  "urls": {},
+  "urlGroups": {}
+}
+```
+
+### Manual mode (grouped projects)
+
+If `workingDirectory` is not set, `ai cursor` / `ai claude` will use `repos` (two-step selection: category → project).
+
+Example:
+
+```json
+{
+  "repos": {
+    "work": {
+      "impactful": "/Users/you/dev/impactful",
+      "payments": "/Users/you/dev/payments"
+    },
+    "personal": {
+      "dotfiles": "/Users/you/dev/dotfiles"
+    }
   },
-  "personal": {
-    "project3": "/path/to/personal/project3"
+  "yiren": {},
+  "urls": {
+    "jira": "https://your-jira.example.com",
+    "gitlab": "https://your-gitlab.example.com"
+  },
+  "urlGroups": {
+    "daily": ["https://example.com", "https://example.org"]
   }
 }
 ```
 
-### Monorepo Setup
-
-For monorepo commands, projects should have:
-
-- `.hsh` marker file in the root (created by `hsh mono init`)
-- Directory structure: `<repo-name>/client/` and `<repo-name>/server/`
-
 ## Development
 
 ```bash
-# Install dependencies
 yarn install
-
-# Build the project
 yarn build
-
-# Build and install globally
-yarn build:install
-
-# Development mode
 yarn dev
 ```
 
-## Requirements
+## Requirements / Notes
 
-- Node.js with ES module support
-- Git
-- GitLab CLI (`glab`) for merge request features
-- Cursor editor (for `cursor` command)
-- Claude Code editor (for `claude` command)
+- **Node.js**: required to run the CLI
+- **Cursor**: `ai cursor` shells out to `cursor <path>`
+- **Claude Code**: `ai claude` shells out to `claude` (and runs it in the selected repo directory)
+- **Chrome + macOS**: `ai url ...` currently uses `open -a "Google Chrome" ...` (and `osascript` for `--suppress`)
 
 ## License
 
-MIT
-
+ISC
