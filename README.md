@@ -12,6 +12,8 @@ A small TypeScript CLI (binary name: `ai`) for:
 npm install -g ai-summon
 ```
 
+NPM: `https://www.npmjs.com/package/ai-summon`
+
 After install, you should have the `ai` command available:
 
 ```bash
