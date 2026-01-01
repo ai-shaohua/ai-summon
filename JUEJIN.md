@@ -156,12 +156,7 @@ ai claude refresh
 如果你也被 Recent 背叛过、也在 Terminal 里 `cd` 到心累过——  
 欢迎试试这种思路：**把打开项目做成一个统一入口。**
 
-如果你想看下一篇，我也可以继续写：
-
-- 如何组织你的 `workingDirectory` 才最顺手
-- 给 repo 命名的“搜索友好”小套路
-- 把 Cursor / Claude 的日常工作流串成一条“启动链路”
-
-（想看就评论区敲个 “+1”，我就当你们催更了）
+项目地址（GitHub）：`https://github.com/ai-shaohua/ai-summon.git`  
+欢迎大家 **点赞 / 收藏 / Star**，你的支持就是我继续打磨小工具的动力～
 
 

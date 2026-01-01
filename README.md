@@ -12,7 +12,7 @@ A small TypeScript CLI (binary name: `ai`) for:
 npm install -g ai-summon
 ```
 
-NPM: `https://www.npmjs.com/package/ai-summon`
+[![npm version](https://img.shields.io/npm/v/ai-summon)](https://www.npmjs.com/package/ai-summon)
 
 After install, you should have the `ai` command available:
 
