@@ -1,6 +1,6 @@
 {
-  "name": "hsh19900502",
-  "version": "2.0.0",
+  "name": "ai-summon",
+  "version": "0.0.1",
   "type": "module",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && tsc",
     "build:install": "npm run build && npm uninstall -g && npm install -g",
-    "start": "node dist/bin/hsh.js",
-    "dev": "ts-node bin/hsh.ts",
+    "start": "node dist/bin/ai-summon.js",
+    "dev": "ts-node bin/ai-summon.ts",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\""
   },
   "bin": {
-    "hsh": "./dist/hsh.js"
+    "ai": "./dist/ai-summon.js"
   },
   "keywords": [],
   "author": "",
