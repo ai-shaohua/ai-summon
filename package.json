@@ -1,0 +1,47 @@
+{
+  "name": "hsh19900502",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsc",
+    "build:install": "npm run build && npm uninstall -g && npm install -g",
+    "start": "node dist/bin/hsh.js",
+    "dev": "ts-node bin/hsh.ts",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
+  },
+  "bin": {
+    "hsh": "./dist/hsh.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "inquirer": "^9.2.15",
+    "inquirer-autocomplete-prompt": "^3.0.1",
+    "log-symbols": "^6.0.0",
+    "ora": "^8.0.1",
+    "zx": "^7.2.3"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/inquirer-autocomplete-prompt": "^3.0.3",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "prettier": "^3.7.4",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
