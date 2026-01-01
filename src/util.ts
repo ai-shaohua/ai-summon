@@ -23,28 +23,17 @@ export const readConfig = (): HshConfig => {
   const configPath = getConfigPath();
 
   if (!existsSync(configPath)) {
-    throw new Error(
-      `Configuration file not found: ${configPath}\n` +
-        `Please create it.\n` +
-        `Config file location: ~/.ai/config.json`
+    console.log(
+      chalk.yellow(
+        `Configuration file not found: ${configPath}\n` +
+          `Run "ai init" to create it and set your workingDirectory.`
+      )
     );
+    process.exit(1);
   }
 
   const configContent = readFileSync(configPath, 'utf-8');
   const config = JSON.parse(configContent);
-
-  // Auto-migrate legacy configuration content (file location is already new)
-  if (!config.repos && !config.yiren && !config.workingDirectory) {
-    console.warn(
-      chalk.yellow('⚠️  Legacy config content detected. Auto-migrating to new structure.')
-    );
-    console.warn(chalk.yellow('ℹ️  Consider updating your ~/.ai/config.json to the new format:'));
-    console.warn(
-      chalk.yellow('   { "repos": { <your existing config> }, "yiren": { <cloud config> } }')
-    );
-
-    return { repos: config, yiren: {} };
-  }
 
   // If workingDirectory is configured but repos/yiren are not, initialize them
   if (config.workingDirectory && !config.repos) {

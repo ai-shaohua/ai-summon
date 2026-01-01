@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { getPackageJson } from './util.js';
 import { openIDE, refreshIdeReposCache } from './commands/ide/index.js';
 import { addUrl, openUrlGroup, removeUrl, searchAndOpenUrl } from './commands/url.js';
+import { initConfig } from './commands/init.js';
 
 const packageJson = getPackageJson();
 
@@ -10,6 +11,15 @@ const program = new Command();
 
 program.usage('<command> [options]');
 program.version(packageJson.version);
+
+program
+  .command('init')
+  .description('initialize ~/.ai/config.json (prompts for workingDirectory)')
+  .option('-w, --working-directory <path>', 'set workingDirectory without prompting')
+  .option('-f, --force', 'overwrite existing config without confirmation')
+  .action(async (options: { workingDirectory?: string; force?: boolean }) => {
+    await initConfig({ workingDirectory: options.workingDirectory, force: options.force });
+  });
 
 const cursor = program.command('cursor').description('open project in Cursor');
 cursor

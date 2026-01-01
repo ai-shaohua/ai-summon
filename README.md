@@ -116,10 +116,11 @@ Projects updated:
 
 ### IDE Configuration
 
-Create `~/.ai/config.json` for IDE project management:
+Run `ai init` to create `~/.ai/config.json` (it will prompt you for `workingDirectory`), or create it manually:
 
 ```json
 {
+  "workingDirectory": "/Users/you/dev",
   "work": {
     "project1": "/path/to/work/project1",
     "project2": "/path/to/work/project2"
