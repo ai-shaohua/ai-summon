@@ -116,38 +116,8 @@ Example:
 ```json
 {
   "workingDirectory": "/Users/you/dev",
-  "repos": {},
-  "yiren": {},
   "urls": {},
   "urlGroups": {}
-}
-```
-
-### Manual mode (grouped projects)
-
-If `workingDirectory` is not set, `ai cursor` / `ai claude` will use `repos` (two-step selection: category → project).
-
-Example:
-
-```json
-{
-  "repos": {
-    "work": {
-      "impactful": "/Users/you/dev/impactful",
-      "payments": "/Users/you/dev/payments"
-    },
-    "personal": {
-      "dotfiles": "/Users/you/dev/dotfiles"
-    }
-  },
-  "yiren": {},
-  "urls": {
-    "jira": "https://your-jira.example.com",
-    "gitlab": "https://your-gitlab.example.com"
-  },
-  "urlGroups": {
-    "daily": ["https://example.com", "https://example.org"]
-  }
 }
 ```
 
