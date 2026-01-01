@@ -9,14 +9,20 @@ A small TypeScript CLI (binary name: `ai`) for:
 ## Installation
 
 ```bash
-yarn install
-yarn build:install
+npm install -g ai-summon
 ```
 
 After install, you should have the `ai` command available:
 
 ```bash
 ai --help
+```
+
+### Install from source (dev)
+
+```bash
+yarn install
+yarn build:install
 ```
 
 ## Commands
