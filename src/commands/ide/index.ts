@@ -11,6 +11,7 @@ import {
 } from '../../util.js';
 import { spawn } from 'child_process';
 import { existsSync } from 'fs';
+import os from 'os';
 
 interface ReposConfig {
   [key: string]: {
@@ -287,8 +288,14 @@ async function launchClaude(projectPath: string): Promise<void> {
 
 // Launch Cursor or other IDE
 async function launchIDE(ideType: string, projectPath: string, projectName: string): Promise<void> {
-  await $`${ideType} ${projectPath}`;
-  console.log(chalk.green(`Opening ${projectName} in ${ideType}...`));
+  const platform = os.platform();
+  const isMacOS = platform === 'darwin';
+  if (ideType === 'cursor' && isMacOS) {
+    await $`open -a "Cursor" ${projectPath}`;
+  } else {
+    await $`${ideType} ${projectPath}`;
+    console.log(chalk.green(`Opening ${projectName} in ${ideType}...`));
+  }
 }
 
 export const openIDE = async (ideType: 'cursor' | 'claude', searchMode?: string) => {
