@@ -287,8 +287,12 @@ async function launchClaude(projectPath: string): Promise<void> {
 
 // Launch Cursor or other IDE
 async function launchIDE(ideType: string, projectPath: string, projectName: string): Promise<void> {
-  await $`${ideType} ${projectPath}`;
-  console.log(chalk.green(`Opening ${projectName} in ${ideType}...`));
+  if (ideType === 'cursor') {
+    await $`open -a "Cursor" ${projectPath}`;
+  } else {
+    await $`${ideType} ${projectPath}`;
+    console.log(chalk.green(`Opening ${projectName} in ${ideType}...`));
+  }
 }
 
 export const openIDE = async (ideType: 'cursor' | 'claude', searchMode?: string) => {
